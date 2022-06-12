@@ -1,0 +1,19 @@
+.container {
+  background-color: #fff;
+  border-radius: 8px;
+  display: flex;
+  margin: 20px;
+  align-items: center;
+  flex-direction: column;
+  height: 140px;
+  box-shadow: 0px 0px 5px 5px rgba(148, 148, 148, 0.2);
+}
+
+.title {
+  background-color: #49654c;
+  color: #fff;
+  width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  margin-bottom: 20px;
+}
