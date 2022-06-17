@@ -1,0 +1,32 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Node js server for microcontroller project",
+  "main": "index.js",
+  "module": "commonjs",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-specifier-resolution=node index.js",
+    "watch": "nodemon --experimental-specifier-resolution=node index.js"
+  },
+  "author": "Volodymyr Podufalyy",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.8",
+    "nodemon": "^2.0.16",
+    "serialport": "^10.4.0",
+    "socket.io": "^4.5.1"
+  },
+  "prettier": {
+    "prettier.tabWidth": 2,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "prettier.semi": true,
+    "prettier.jsxBracketSameLine": true,
+    "prettier.printWidth": 100
+  }
+}
