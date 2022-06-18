@@ -5,7 +5,7 @@ import axios from "./axios.ts";
 export default {
 	getTemperatureFactors: async () => {
 		try {
-			const {data} = await axios.get("/ecofactors/temperature");
+			const {data} = await axios.get("/api/climate");
 			return data;
 		} catch (err) {
 			throw err;

@@ -10,7 +10,7 @@ const Card = (props) => {
 			</div>
 			<div className="value-row">
 				<h4>Current temperature:</h4>
-				<span>27 C</span>
+				<span>{props.value} C</span>
 			</div>
 		</div>
 	);
