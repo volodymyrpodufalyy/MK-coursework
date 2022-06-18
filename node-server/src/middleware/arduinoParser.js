@@ -1,15 +1,15 @@
 import EcoFactorsController from "../controllers/EcoFactorsController";
 
-
-const formatData =(data) => {
-   const jsonObj = JSON.parse(data);
-   return jsonObj;
-}
+const formatData = (data) => {
+  if (data.startsWith("{")) return JSON.parse(data);
+  else return data;
+};
 
 const arduinoParser = (data) => {
-    const formattedData = formatData(data);
+	// const formattedData = formatData(data);
 
-    console.log(formattedData);
-}
+	console.log("incoming data: ");
+  console.log(data);
+};
 
 export default arduinoParser;
