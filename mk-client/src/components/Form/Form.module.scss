@@ -1,0 +1,32 @@
+.container {
+  border-color: #163822;
+  box-shadow: 0px 0px 5px 5px rgba(148, 148, 148, 0.2);
+  border-radius: 8px;
+  padding: 30px;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  font-size: 16px;
+  flex-direction: row;
+  display: flex;
+  margin: 20px;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  label {
+    margin: 0;
+    padding: 0;
+  }
+  input {
+    border-radius: 4px;
+    padding: 8px;
+    margin: 0;
+  }
+}
+

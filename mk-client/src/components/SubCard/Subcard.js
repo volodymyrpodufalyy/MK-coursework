@@ -1,13 +1,14 @@
 import React from 'react';
 import "../../App.scss"
 import styles from "./SubCard.module.scss"
+import { renderSuffix } from "../../utils/renderSuffix";
 
-const SubCard = () => {
+const SubCard = (props) => {
 	return (
 		<div className={styles.container}>
 			<div className="value-row">
-				<h4>Current temperature 1 hour ago: </h4>
-				<span>24 C</span>
+				<h4>{props.ecofactor} 1 hour ago: </h4>
+				<span>{props.value + renderSuffix(props.ecofactor)}</span>
 			</div>
 		</div>
 	);

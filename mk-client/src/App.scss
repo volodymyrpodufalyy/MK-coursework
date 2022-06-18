@@ -31,7 +31,18 @@
 .cards-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+}
+
+.content-group {
+  display: flex;
+  flex-direction: column;
+  &--main {
+    width: 60%;
+  }
+  &--devices {
+    align-items: center;
+  }
 }
 
 
@@ -52,11 +63,40 @@
 .cards-group {
   display: flex;
   flex-direction: column;
-  width: 25%;
 }
 
 .logo {
   align-self: center;
-  width: 30%;
+  width: 50%;
   margin: 30px;
+}
+
+.device-img {
+  height: 200px;
+  margin-bottom: 15px;
+}
+
+.top-content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.action-btn {
+  border-radius: 8px;
+  padding: 8px;
+  margin: 8px;
+  font-size: 18px;
+  background-color: rgba(22, 56, 34, 0.8);
+  color: #fff;
+  cursor: pointer;
+}
+
+.action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
 }
