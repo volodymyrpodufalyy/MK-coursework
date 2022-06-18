@@ -180,40 +180,18 @@ void RelaySet(void)
   else digitalWrite(RelayF, LOW);
 }
 //-------------------------------------------------------------------------
-String response = "{ \"humidity\": \"${humidity}\", \"temperature\": \"${temperature}\", \"humStatus\": \"${humStatus}\", \"tempStatus\": \"${tempStatus}\", \"fanStatus\": \"${fanStatus}\" }";
-void checkStatus(String key, char value) {
-  if (value == 1) response.replace(key, "on");
-  else response.replace(key, "off");
+
+String checkStatus(char value) {
+  if (value == 1)  return "on";
+  else return "off";
 }
 void SerialTest(void)
 {
+String response = "{ \"humidity\": \"${humidity}\",  \"setHumidity\": \"${setHumidity}\",  \"setTemperature\": \"${setTemperature}\", \"temperature\": \"${temperature}\", \"humStatus\": \"${humStatus}\", \"tempStatus\": \"${tempStatus}\", \"fanStatus\": \"${fanStatus}\" }";
   if (Serial.available() > 0)
   {
-    // read the incoming byte:
     incomingByte = Serial.read();
-    if (incomingByte == '?')                                //Request for printing values '?'
-    {
-      response.replace("${humidity}", String(HumCur));
-      response.replace("${temperature}", String(TempCur));
-      
-      checkStatus("${humStatus}", HumSwOn);
-      checkStatus("${tempStatus}", TempSwOn);
-      checkStatus("${fanStatus}", FanSwOn);
-      Serial.println(response);
-//      Serial.print(HumCur, DEC);
-//      Serial.print(" Ht=");
-//      Serial.print(HumSetVal);
-//      Serial.print(" T=");
-//      Serial.print(TempCur, DEC);
-//      Serial.print(" Tt=");
-//      Serial.print(TempSetVal, DEC);
-//      Serial.print(" Moisturizer=");
-//      Serial.print(HumSwOn, DEC);
-//      Serial.print(" Heater=");
-//      Serial.print(TempSwOn, DEC);
-//      Serial.print(" Fan=");
-//      Serial.print(FanSwOn, DEC);
-    }
+
 
     if (incomingByte == '!')                                //Request for Setting Thresholds "!HHTT": HH-HummSetVal, TT-TempSetVal (if H or T is not digit it is restored 0 - !A45K -> HumSetVal=04 & TempSetVal=50)
     {
@@ -235,12 +213,24 @@ void SerialTest(void)
       incomingByte = Serial.read();
       if (!isDigit(incomingByte))incomingByte = '0';
       TempSetVal += (incomingByte - '0');
-
-      Serial.print("Ht=");
-      Serial.print(HumSetVal);
-      Serial.print(" Tt=");
-      Serial.print(TempSetVal);
     }
+        if (incomingByte == '?')                                //Request for printing values '?'
+        {
+          String setHumidity = String(HumSetVal);
+          String setTemperature = String(TempSetVal);
+          response.replace("${humidity}", String(HumCur));
+          response.replace("${temperature}", String(TempCur));
+          response.replace("${setTemperature}", setTemperature);
+          response.replace("${setHumidity}", setHumidity);
+
+          String humStatus = checkStatus(HumSwOn);
+          String fanStatus = checkStatus(FanSwOn);
+          String tempStatus = checkStatus(TempSwOn);
+          response.replace("${humStatus}", humStatus);
+          response.replace("${tempStatus}", tempStatus);
+          response.replace("${fanStatus}", fanStatus);
+          Serial.println(response);
+        }
   }
 }
 //-------------------------------------------------------------------------

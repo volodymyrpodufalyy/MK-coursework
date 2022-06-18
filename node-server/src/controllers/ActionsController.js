@@ -1,6 +1,7 @@
 import { arduinoSerialPort, parser } from "../..";
+import EcoFactor from "../models/EcoFactor";
 
-const climateConfig = {};
+const climateConfig = {}
 
 class ActionsController {
   onActivate() {
@@ -63,16 +64,34 @@ class ActionsController {
     try {
       arduinoSerialPort.write("?");
 
-      parser.on("data", (data) => {
-        climateConfig.data = JSON.parse(data);
-        console.log(climateConfig.data, "set response\n");
-        if (climateConfig.data) {
-          res.status(200);
-          res.json({
-            message: "Climate configuration requested successfully",
-            response: climateConfig.data,
-          });
+      const getPortInfo = () => new Promise((resolve, reject) => parser.on("data", (data) => {
+        const response = data.startsWith("{") ? JSON.parse(data) : null;
+        climateConfig.data = response;
+        resolve(response);
+      }));
+      const info = await getPortInfo();
+      const ecofactors = await EcoFactor.find({});
+      const now = new Date();
+      const ONE_HOUR = 60 * 60 * 1000;
+      const saveEcoFactors = async (info) => {
+        await EcoFactor.create({
+          type: "temperature",
+          value: info.temperature
+        });
+        await EcoFactor.create({
+          type: "humidity",
+          value: info.humidity
+        })
+      }
+      if (ecofactors.length > 0) {
+        if ((now - ecofactors[0].createdAt) < ONE_HOUR) {
+          await saveEcoFactors(info);
         }
+      } else await saveEcoFactors(info);
+      res.status(200);
+      res.json({
+        message: "Climate configuration requested successfully",
+        data: info,
       });
     } catch (error) {
       res.status(500);

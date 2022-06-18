@@ -1,7 +1,6 @@
 import express from "express";
 import router from "./src/core/router";
 import { SerialPort, ReadlineParser } from "serialport";
-import arduinoParser from "./src/middleware/arduinoParser"
 import "./src/core/db";
 
 const app = express();
@@ -28,8 +27,6 @@ async function startApp() {
     arduinoSerialPort.on("open", function () {
       console.log("Serial Port " + ARDUINO_COMPORT + " is opened.");
     });
-
-    // parser.on("data", arduinoParser);
   } catch (e) {
     console.log(e);
   }
