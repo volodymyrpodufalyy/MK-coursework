@@ -3,10 +3,16 @@
   border-radius: 8px;
   display: flex;
   margin: 20px;
+  font-size: 16px;
+  color: #163822;
   align-items: center;
   flex-direction: column;
-  height: 140px;
+  padding-bottom: 15px;
   box-shadow: 0px 0px 5px 5px rgba(148, 148, 148, 0.2);
+}
+
+.content {
+  padding: 15px;
 }
 
 .title {
