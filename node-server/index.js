@@ -29,7 +29,7 @@ async function startApp() {
       console.log("Serial Port " + ARDUINO_COMPORT + " is opened.");
     });
 
-    parser.on("data", arduinoParser);
+    // parser.on("data", arduinoParser);
   } catch (e) {
     console.log(e);
   }
