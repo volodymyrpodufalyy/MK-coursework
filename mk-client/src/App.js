@@ -6,37 +6,46 @@ import SubCard from "./components/SubCard/Subcard";
 import logo from "./assets/factory-img.png"
 
 function App() {
-  const [temperatureFactors, setTemperatureFactors] = useState([]);
+  const [climateConfig, setClimateConfig] = useState({ });
 
   useEffect(() => {
-   api.getTemperatureFactors()
-      .then(response => setTemperatureFactors(response))
+    console.log("PROCESSING REQUEST");
+
+    api.getTemperatureFactors()
+      .then(res => {
+        console.log(res, "result")
+        setClimateConfig(res.response);
+      })
       .catch(error => {
         console.log(error)
-        setTemperatureFactors([])
+        setClimateConfig({})
       })
   }, []);
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Our factory eco factors</h1>
+        <h1>Our factory climate control</h1>
       </header>
       <main className="main">
         <img className="logo" alt="Factory" src={logo} />
         <div className="cards-container">
-          <div className="cards-group">
-            <Card title="Storage" />
-            <SubCard />
-          </div>
-          <div className="cards-group">
-            <Card title="Packaging" />
-            <SubCard />
-          </div>
-          <div className="cards-group">
-            <Card title="Security" />
-            <SubCard />
-          </div>
+          {climateConfig.temperature && (
+            <>
+              <div className="cards-group">
+                <Card title="Humidity" value={climateConfig.humidity} />
+                <SubCard />
+              </div>
+              <div className="cards-group">
+                <Card title="Temperature" value={climateConfig.temperature} />
+                <SubCard />
+              </div>
+              <div className="cards-group">
+                <Card title="Security"  />
+                <SubCard />
+              </div>
+            </>
+          )}
         </div>
       </main>
     </div>
